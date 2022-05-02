@@ -24,6 +24,7 @@ params.pc = 1
 params.gamma = 0.1
 params.mu = 0.1
 params.sigma = 0.1
+params.crosspro = 0.8
 
 #Algorytm genetyczny
 out = ga.run(problem, params)

@@ -14,8 +14,9 @@ def run(problem, params):
     maxit = params.maxit
     npop = params.npop
     beta = params.beta
-    pc =params.pc
+    pc = params.pc
     nc = int(np.round(pc*npop/2)*2)
+    crosspro = params.crosspro
     gamma = params.gamma
     mu = params.mu
     sigma = params.sigma
@@ -43,11 +44,11 @@ def run(problem, params):
     #Main Loop
     for it in range(maxit):
 
-        costs = np.array([x.cost for x in pop])
-        avg_cost = np.mean(costs)
-        if avg_cost != 0:
-            costs = costs/avg_cost
-        probs = np.exp(-beta*costs)   
+        # costs = np.array([x.cost for x in pop])
+        # avg_cost = np.mean(costs)
+        # if avg_cost != 0:
+        #     costs = costs/avg_cost
+        # probs = np.exp(-beta*costs)   
 
 
         popc = []
@@ -65,7 +66,11 @@ def run(problem, params):
 
             #Perform Crossover
             #c1, c2 = crossover(p1, p2, gamma)
-            c1, c2 = singlepoint_crossover(p1, p2)
+            r = np.random.rand()
+            if r < crosspro:
+                c1, c2 = singlepoint_crossover(p1, p2)
+            else:
+                c1, c2 = p1, p2
 
             #Perform Mutation
             c1 = mutate(c1, mu, sigma)
